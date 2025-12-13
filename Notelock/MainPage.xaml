@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Notelock.MainPage"
+             Title="Notelock">
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="File">
+            <MenuFlyoutItem Text="New" Clicked="OnNewClicked" />
+            <MenuFlyoutItem Text="Open" Clicked="OnOpenClicked" />
+            <MenuFlyoutItem Text="Save" Clicked="OnSaveClicked" />
+            <MenuFlyoutItem Text="Save As..." Clicked="OnSaveAsClicked" />
+            <MenuFlyoutItem Text="Exit" Clicked="OnExitClicked" />
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <Grid>
+        <Editor x:Name="MainEditor"
+                Placeholder="Start typing..."
+                AutoSize="TextChanges"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand" 
+                BackgroundColor="Transparent"
+                TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                />
+    </Grid>
+
+</ContentPage>
