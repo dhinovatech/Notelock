@@ -15,11 +15,15 @@ public partial class PasswordPage : ContentPage
         {
             ConfirmPasswordLayout.IsVisible = true;
             ActionBtn.Text = "Encrypt & Save";
+            TitleLabel.Text = "Encrypt Document";
+            SubtitleLabel.Text = "Set a strong password to protect your file's content.";
         }
         else
         {
             ConfirmPasswordLayout.IsVisible = false;
             ActionBtn.Text = "Decrypt & Open";
+            TitleLabel.Text = "Decrypt Document";
+            SubtitleLabel.Text = "Enter your password to unlock the encrypted document.";
         }
     }
 
@@ -55,5 +59,22 @@ public partial class PasswordPage : ContentPage
     {
         _tcs.SetResult(null);
         Navigation.PopModalAsync();
+    }
+
+    private void OnPasswordCompleted(object sender, EventArgs e)
+    {
+        if (_isEncryptMode)
+        {
+            ConfirmPasswordEntry.Focus();
+        }
+        else
+        {
+            OnActionClicked(this, EventArgs.Empty);
+        }
+    }
+
+    private void OnConfirmPasswordCompleted(object sender, EventArgs e)
+    {
+        OnActionClicked(this, EventArgs.Empty);
     }
 }
