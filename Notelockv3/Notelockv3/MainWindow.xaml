@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Notelockv3.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Notelockv3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Notelock - Untitled">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
+        
+        <!-- MenuBar -->
+        <MenuBar Grid.Row="0">
+            <MenuBarItem Title="File" x:Name="FileMenu">
+                <MenuFlyoutItem x:Name="NewMenuItem" Text="New" Click="OnNewClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="N" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="NewWindowMenuItem" Text="New Window" Click="OnNewWindowClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="N" Modifiers="Control,Shift" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="OpenMenuItem" Text="Open..." Click="OnOpenClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="O" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="SaveMenuItem" Text="Save" Click="OnSaveClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="SaveAsMenuItem" Text="Save As..." Click="OnSaveAsClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control,Shift" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem x:Name="ExitMenuItem" Text="Exit" Click="OnExitClicked" />
+            </MenuBarItem>
+
+            <MenuBarItem Title="Edit" x:Name="EditMenu">
+                <MenuFlyoutItem x:Name="UndoMenuItem" Text="Undo" Click="OnUndoClicked" KeyboardAcceleratorTextOverride="Ctrl+Z" />
+                <MenuFlyoutItem x:Name="RedoMenuItem" Text="Redo" Click="OnRedoClicked" KeyboardAcceleratorTextOverride="Ctrl+Y" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem x:Name="CutMenuItem" Text="Cut" Click="OnCutClicked" KeyboardAcceleratorTextOverride="Ctrl+X" />
+                <MenuFlyoutItem x:Name="CopyMenuItem" Text="Copy" Click="OnCopyClicked" KeyboardAcceleratorTextOverride="Ctrl+C" />
+                <MenuFlyoutItem x:Name="PasteMenuItem" Text="Paste" Click="OnPasteClicked" KeyboardAcceleratorTextOverride="Ctrl+V" />
+                <MenuFlyoutItem x:Name="DeleteMenuItem" Text="Delete" Click="OnDeleteClicked" KeyboardAcceleratorTextOverride="Del" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem x:Name="FindMenuItem" Text="Find..." Click="OnFindClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="FindNextMenuItem" Text="Find Next" Click="OnFindNextMenuClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F3" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="FindPrevMenuItem" Text="Find Previous" Click="OnFindPrevMenuClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F3" Modifiers="Shift" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="ReplaceMenuItem" Text="Replace..." Click="OnReplaceMenuClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="H" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem x:Name="GoToMenuItem" Text="Go To..." Click="OnGoToClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="G" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem x:Name="SelectAllMenuItem" Text="Select All" Click="OnSelectAllClicked" KeyboardAcceleratorTextOverride="Ctrl+A" />
+                <MenuFlyoutItem x:Name="TimeDateMenuItem" Text="Time/Date" Click="OnTimeDateClicked">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F5" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+            </MenuBarItem>
+
+            <MenuBarItem Title="Format" x:Name="FormatMenu">
+                <MenuFlyoutItem x:Name="WordWrapMenuItem" Text="✓ Word Wrap" Click="OnWordWrapClicked" />
+            </MenuBarItem>
+
+            <MenuBarItem Title="View" x:Name="ViewMenu">
+                <MenuFlyoutSubItem Text="Zoom" x:Name="ZoomSubMenu">
+                    <MenuFlyoutItem x:Name="ZoomInMenuItem" Text="Zoom In" Click="OnZoomInClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="Add" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem x:Name="ZoomOutMenuItem" Text="Zoom Out" Click="OnZoomOutClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="Subtract" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem x:Name="RestoreZoomMenuItem" Text="Restore Default Zoom" Click="OnZoomResetClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="Number0" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                </MenuFlyoutSubItem>
+                <MenuFlyoutItem x:Name="StatusBarMenuItem" Text="✓ Status Bar" Click="OnStatusBarToggleClicked" />
+            </MenuBarItem>
+
+            <MenuBarItem Title="Help" x:Name="HelpMenu">
+                <MenuFlyoutItem x:Name="AboutMenuItem" Text="About Notelock" Click="OnAboutClicked" />
+            </MenuBarItem>
+
+            <!-- Language Selection Menu in WinUI 3 MenuBar -->
+            <MenuBarItem Title="Language" x:Name="LanguageMenu">
+                <MenuFlyoutItem Text="Auto (System Language)" Tag="auto" Click="OnLanguageItemClicked" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="English" Tag="en" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="简体中文 (Mandarin Chinese)" Tag="zh-CN" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="हिन्दी (Hindi)" Tag="hi" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Español (Spanish)" Tag="es" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Français (French)" Tag="fr" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="العربية (Arabic)" Tag="ar" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="বাংলা (Bengali)" Tag="bn" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Português (Portuguese)" Tag="pt" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Русский (Russian)" Tag="ru" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="اردو (Urdu)" Tag="ur" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Bahasa Indonesia (Indonesian)" Tag="id" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Deutsch (German)" Tag="de" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="日本語 (Japanese)" Tag="ja" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Naija (Nigerian Pidgin)" Tag="pcm" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="عربي مصري (Egyptian Arabic)" Tag="arz" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="मराठी (Marathi)" Tag="mr" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="తెలుగు (Telugu)" Tag="te" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Türkçe (Turkish)" Tag="tr" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="தமிழ் (Tamil)" Tag="ta" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="粵語 (Cantonese)" Tag="yue" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Tiếng Việt (Vietnamese)" Tag="vi" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="吴语 (Wu Chinese)" Tag="wuu" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Filipino (Tagalog)" Tag="tl" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="한국어 (Korean)" Tag="ko" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="فارسی (Persian)" Tag="fa" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Harshen Hausa (Hausa)" Tag="ha" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Basa Jawa (Javanese)" Tag="jv" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="ਪੰਜਾਬੀ (Punjabi)" Tag="pa" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Kiswahili (Swahili)" Tag="sw" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Italiano (Italian)" Tag="it" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Èdè Yorùbá (Yoruba)" Tag="yo" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="ગુજરાતી (Gujarati)" Tag="gu" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="ไทย (Thai)" Tag="th" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="አማርኛ (Amharic)" Tag="am" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="भोजपुरी (Bhojpuri)" Tag="bho" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Polski (Polish)" Tag="pl" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="پښتو (Pashto)" Tag="ps" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="ଓଡ଼ିଆ (Odia)" Tag="or" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="閩南語 (Min Nan Chinese)" Tag="nan" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="മലയാളം (Malayalam)" Tag="ml" Click="OnLanguageItemClicked" />
+                <MenuFlyoutItem Text="Nederlands (Dutch)" Tag="nl" Click="OnLanguageItemClicked" />
+            </MenuBarItem>
+        </MenuBar>
+
+        <!-- Find/Replace Panel -->
+        <Border x:Name="FindReplacePanel" 
+                Grid.Row="1" 
+                Visibility="Collapsed" 
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="10"
+                Margin="5">
+            <StackPanel Spacing="8">
+                <!-- Find Row -->
+                <Grid ColumnDefinitions="*, Auto, Auto, Auto, Auto" ColumnSpacing="8">
+                    <TextBox x:Name="FindEntry" 
+                             Grid.Column="0"
+                             PlaceholderText="Find text..."
+                             AutomationProperties.Name="Find Input"
+                             Height="36"
+                             TextChanged="OnFindTextChanged" />
+                    
+                    <Button Grid.Column="1" 
+                            Content="▲" 
+                            Width="36" 
+                            Height="36"
+                            Padding="0"
+                            ToolTipService.ToolTip="Find Previous"
+                            AutomationProperties.Name="Find Previous"
+                            Click="OnFindPrevClicked" />
+                    
+                    <Button Grid.Column="2" 
+                            Content="▼" 
+                            Width="36" 
+                            Height="36"
+                            Padding="0"
+                            ToolTipService.ToolTip="Find Next"
+                            AutomationProperties.Name="Find Next"
+                            Click="OnFindNextClicked" />
+                    
+                    <CheckBox x:Name="MatchCaseCheckBox" 
+                               Grid.Column="3"
+                               Content="Match Case" 
+                               IsChecked="False" 
+                               VerticalAlignment="Center" />
+                    
+                    <Button Grid.Column="4" 
+                            Content="✕" 
+                            Width="36" 
+                            Height="36"
+                            Padding="0"
+                            ToolTipService.ToolTip="Close Find/Replace"
+                            AutomationProperties.Name="Close Find and Replace"
+                            Click="OnCloseFindReplaceClicked"
+                            Background="Transparent" />
+                </Grid>
+
+                <!-- Replace Row -->
+                <Grid x:Name="ReplaceRow" ColumnDefinitions="*, Auto, Auto" ColumnSpacing="8" Visibility="Collapsed">
+                    <TextBox x:Name="ReplaceEntry" 
+                             Grid.Column="0"
+                             PlaceholderText="Replace with..."
+                             AutomationProperties.Name="Replace Input"
+                             Height="36" />
+                    
+                    <Button Grid.Column="1" 
+                            Content="Replace" 
+                            Height="36"
+                            Click="OnReplaceClicked"
+                            Style="{StaticResource AccentButtonStyle}"
+                            Padding="15,0" />
+                    
+                    <Button Grid.Column="2" 
+                            Content="Replace All" 
+                            Height="36"
+                            Click="OnReplaceAllClicked"
+                            Padding="15,0" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Editor -->
+        <TextBox x:Name="MainEditor"
+                 Grid.Row="2"
+                 PlaceholderText="Start typing..."
+                 AutomationProperties.Name="Main Text Editor"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 FontFamily="Consolas"
+                 FontSize="14"
+                 Margin="0"
+                 Padding="8,6,8,6"
+                 BorderThickness="0"
+                 CornerRadius="0"
+                 ScrollViewer.VerticalScrollMode="Enabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollMode="Enabled"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 SelectionHighlightColor="{ThemeResource SystemAccentColor}"
+                 SelectionHighlightColorWhenNotFocused="{ThemeResource SystemAccentColor}"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <TextBox.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="TextControlBorderBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBackground" Color="#FFFFFF" />
+                            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#FFFFFF" />
+                            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#FFFFFF" />
+                            <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="#FFFFFF" />
+
+                            <SolidColorBrush x:Key="TextControlForeground" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundUnfocused" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundSelected" Color="{ThemeResource TextOnAccentFillColorPrimary}" />
+                            <SolidColorBrush x:Key="TextControlForegroundSelectedUnfocused" Color="{ThemeResource TextOnAccentFillColorPrimary}" />
+
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColor" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorFocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorUnfocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorWhenUnfocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorPointerOver" Color="{ThemeResource SystemAccentColor}" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="TextControlBorderBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBackground" Color="#1F1F1F" />
+                            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#1F1F1F" />
+                            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#1F1F1F" />
+                            <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="#1F1F1F" />
+
+                            <SolidColorBrush x:Key="TextControlForeground" Color="#FFFFFFFF" />
+                            <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#FFFFFFFF" />
+                            <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#FFFFFFFF" />
+                            <SolidColorBrush x:Key="TextControlForegroundUnfocused" Color="#FFFFFFFF" />
+                            <SolidColorBrush x:Key="TextControlForegroundSelected" Color="{ThemeResource TextOnAccentFillColorPrimary}" />
+                            <SolidColorBrush x:Key="TextControlForegroundSelectedUnfocused" Color="{ThemeResource TextOnAccentFillColorPrimary}" />
+
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColor" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorFocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorUnfocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorWhenUnfocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorPointerOver" Color="{ThemeResource SystemAccentColor}" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Default">
+                            <SolidColorBrush x:Key="TextControlBorderBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent" />
+                            <SolidColorBrush x:Key="TextControlBackground" Color="#FFFFFF" />
+                            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#FFFFFF" />
+                            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#FFFFFF" />
+                            <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="#FFFFFF" />
+
+                            <SolidColorBrush x:Key="TextControlForeground" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundUnfocused" Color="#E4000000" />
+                            <SolidColorBrush x:Key="TextControlForegroundSelected" Color="{ThemeResource TextOnAccentFillColorPrimary}" />
+                            <SolidColorBrush x:Key="TextControlForegroundSelectedUnfocused" Color="{ThemeResource TextOnAccentFillColorPrimary}" />
+
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColor" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorFocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorUnfocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorWhenUnfocused" Color="{ThemeResource SystemAccentColor}" />
+                            <SolidColorBrush x:Key="TextControlSelectionHighlightColorPointerOver" Color="{ThemeResource SystemAccentColor}" />
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                    <Thickness x:Key="TextControlBorderThickness">0</Thickness>
+                    <Thickness x:Key="TextControlBorderThicknessFocused">0</Thickness>
+                </ResourceDictionary>
+            </TextBox.Resources>
+        </TextBox>
+
+        <!-- Status Bar -->
+        <Grid x:Name="StatusBar"
+              Grid.Row="3"
+              ColumnDefinitions="*, Auto, Auto, Auto, Auto"
+              Background="Transparent"
+              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+              BorderThickness="0,1,0,0"
+              Height="28"
+              Padding="10,0"
+              VerticalAlignment="Bottom">
+            
+            <TextBlock Grid.Column="0" 
+                       x:Name="StatusBarFileNameLabel" 
+                       Text="Untitled" 
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       FontSize="12" 
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="4,0,4,0" />
+            
+            <!-- Ln X, Col Y -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Border Width="1" Height="16" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="6,0,10,0" />
+                <TextBlock x:Name="CursorPosLabel" 
+                           Text="Ln 1, Col 1" 
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           FontSize="12" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,10,0" />
+            </StackPanel>
+            
+            <!-- Zoom Level -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <Border Width="1" Height="16" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="6,0,10,0" />
+                <TextBlock x:Name="ZoomLabel" 
+                           Text="100%" 
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           FontSize="12" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,10,0" />
+            </StackPanel>
+            
+            <!-- Line Endings -->
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                <Border Width="1" Height="16" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="6,0,10,0" />
+                <TextBlock x:Name="LineEndingsLabel" 
+                           Text="Windows (CRLF)" 
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           FontSize="12" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,10,0" />
+            </StackPanel>
+            
+            <!-- Encoding -->
+            <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center">
+                <Border Width="1" Height="16" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="6,0,10,0" />
+                <TextBlock x:Name="EncodingLabel" 
+                           Text="UTF-8" 
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           FontSize="12" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,4,0" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
